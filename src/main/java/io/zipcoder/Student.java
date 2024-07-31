@@ -1,31 +1,37 @@
 package io.zipcoder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Student {
-
+public class Student implements Comparable<Student> {
     private String firstname;
     private String lastname;
     private ArrayList<Double> examScores;
     private int numberOfExamsTaken;
 
-    public Student (String firstname, String lastname, Double[] examScores){
-
+    public Student() {
+        this.examScores = new ArrayList<>();
     }
 
-    public String getFirstname() {
+    public Student (String firstname, String lastname, Double[] testScores){
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.examScores = new ArrayList<>(Arrays.asList(testScores));
+    }
+
+    public String getFirstName() {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
+    public void setFirstName(String firstname) {
         this.firstname = firstname;
     }
 
-    public String getLastname() {
+    public String getLastName() {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
+    public void setLastName(String lastname) {
         this.lastname = lastname;
     }
 
@@ -55,6 +61,17 @@ public class Student {
 
     public String toString() {
         return ("Student Name: " + firstname + lastname + "\n> Average Score: " + getAverageExamScore() +"\n> Exam Scores:\n\t" + examScores);
+
     }
 
+    @Override
+    public int compareTo(Student otherStudent) {
+        int averageScore;
+        if (this.getAverageExamScore() < otherStudent.getAverageExamScore()){
+            averageScore = (int)otherStudent.getAverageExamScore();
+        } else {
+            averageScore = (int)this.getAverageExamScore();
+        }
+        return averageScore;
+    }
 }
